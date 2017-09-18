@@ -1,4 +1,6 @@
 {
-    "BundleIdentifier": "parse",
-    "VendorIdentifier": "org.parse"
+    "id": "parse",
+    "name": "Parse",
+    "type": "plugin",
+    "version": "0.0.1"
 }

@@ -24,6 +24,7 @@ define(['controls/tabledatasource'], function (SPTableDataSource) {
          **/
         async fetchNext() {
             this.page++;
+            debugger;
             let newItems = await new Promise((resolve, fail) => {
                 let query = this.query.descending('time');
                 this.columns.map((c) => {
@@ -35,6 +36,7 @@ define(['controls/tabledatasource'], function (SPTableDataSource) {
                             let obj = item.simplify();
                             return obj;
                         }));
+                        debugger;
                     },
                     error: (e) => {
                         throw e;

@@ -10,17 +10,25 @@ define(
     ) {
     return class SPModelViewElement extends SPViewElement {
             createdCallback() {
+                super.createdCallback();
                 this.content = document.createElement('div');
                 this.classList.add('sp-view');
             }
             activate() {
                 super.activate();
-                GlobalTabBar.setState({
+                try {
+                 GlobalTabBar.setState({
                     objects: [{
                         id: 'overview',
                         name: _e(this.label)
-                    }]
+                    }],
+                    add: {
+                        uri: 'bungalow:' + this.model.toLocaleLowerCase() + ':add'
+                    }
                 }); 
+                } catch (e) {
+                    
+                }
                 this.created = true;
             }
             get type() {
@@ -77,6 +85,15 @@ define(
                                 }
                             }]
                         });
+                        GlobalTabBar.setState({
+                            objects: [{
+                                id: 'overview',
+                                name: _e(this.label)
+                            }],
+                            add: {
+                                uri: 'bungalow:' + this.model.toLocaleLowerCase() + ':add'
+                            }
+                        }); 
                         this.listView =  document.createElement('sp-table');
                         this.section.appendChild(this.header);
                         if (this.content instanceof Node)
