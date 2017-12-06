@@ -4,9 +4,8 @@ define(['controls/tabledatasource'], function (SPTableDataSource) {
             super();
             this.query = new Parse.Query(ParseClass);
             this.subscription = this.query.subscribe();
-            this.columns = columns;
+            this.columns = columns || ['name'];
             this.rows = [];
-            this.columns = columns;
             this.page = 0;
             this.removedRows = [];
             this.subscription.on('create', (object) => {

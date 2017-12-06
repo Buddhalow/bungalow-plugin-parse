@@ -59,7 +59,7 @@ define(
                 if (attrName === 'uri') {
                     this.innerHTML = '';
                     this.section = document.createElement('sp-tabcontent');
-                    this.section.setAttribute('data-id', 'overview');
+                    this.section.setAttribute('data-tab-id', 'overview');
                     this.appendChild(this.section);
                     
                     if (newVal === 'bungalow:' + this.model.toLowerCase()) {

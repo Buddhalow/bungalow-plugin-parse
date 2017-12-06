@@ -82,10 +82,8 @@ define(['controls/tabledesigner'], function (SPTableDesigner) {
                 tr = document.createElement('tr');
                 tr.created = true;
                 tr.setAttribute('data-id', row.id);
-                let ctd = document.createElement('td');
-                tr.appendChild(ctd);
+                this.ctd = document.createElement('td');
                 if (!row) return tr;
-                this.ctd = ctd;
             } else {
                 tr.created = false;
             }
@@ -145,9 +143,6 @@ define(['controls/tabledesigner'], function (SPTableDesigner) {
         getHeaderRow() {
             let tr = document.createElement('tr');
     
-            let ctd = document.createElement('th');
-            tr.appendChild(ctd);
-            this.ctd = ctd;
             return tr;
         }
         getColumnElementAt(columnIndex) {

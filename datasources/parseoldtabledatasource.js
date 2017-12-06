@@ -3,9 +3,8 @@ define(['controls/tabledatasource'], function (SPTableDataSource) {
         constructor(ParseClass, columns) {
             super();
             this.query = new Parse.Query(ParseClass);
-            this.columns = columns;
+            this.columns = columns || ['name'];
             this.rows = [];
-            this.columns = columns;
             this.page = 0;
         }
         
