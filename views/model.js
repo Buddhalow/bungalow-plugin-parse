@@ -12,20 +12,20 @@ define(
     ) {
     return class SPModelViewElement extends SPViewElement {
             get dataSource() {
-                return this.listView.dataSource;
+                return this.table.dataSource;
             }
             set dataSource(value) {
-                this.listView.dataSource = value;
+                this.table.dataSource = value;
                 this.form.dataSource = value;
             }
             get dataSource() {
-                return this.listView.dataSource;
+                return this.table.dataSource;
             }
             set designer(value) {
-                this.listView.designer = value;
+                this.table.designer = value;
             }
             get designer() {
-                return this.listView.designer;
+                return this.table.designer;
             }
             createdCallback() {
                 super.createdCallback();
@@ -40,19 +40,19 @@ define(
                 this.header = document.createElement('sp-header');
                 this.header.setAttribute('size', 128);
                 
-                this.listView =  document.createElement('sp-table');
+                this.table =  document.createElement('sp-table');
                 this.section.appendChild(this.header);
                 if (this.content instanceof Node)
                 this.section.appendChild(this.content);
                 this.containerElement = document.createElement('div');
                 this.containerElement.classList.add('container');
                 this.section.appendChild(this.containerElement);
-                this.containerElement.appendChild(this.listView);
-                this.listView.header = this.header;
-                this.listView.view = this;
-                this.listView.emptyText = this.emptyText;
+                this.containerElement.appendChild(this.table);
+                this.table.header = this.header;
+                this.table.view = this;
+                this.table.emptyText = this.emptyText;
                 var self = this;
-                this.listView.delegate = {
+                this.table.delegate = {
                     onRowDoubleClick(row, obj) {
                         var dialog = document.createElement('sp-modal');
                             dialog.label = _e('Edit') + ' ' + this.model;
@@ -142,7 +142,7 @@ define(
                                 }
                             }]
                         });
-                        this.listView.setAttribute('uri', newVal);
+                        this.table.setAttribute('uri', newVal);
                     } else {
                         this.section.style.display = 'none';
                         this.editSection.style.display = 'block';

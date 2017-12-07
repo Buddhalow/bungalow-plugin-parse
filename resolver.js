@@ -1,12 +1,7 @@
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-define(['controls/datasource'], function (SPDataSource) {
-    return class SPParseDataSource extends SPDataSource {
-        constructor(model, fields) {
-            super();
-            this.fields = fields;
+define(function() {
+    return class ParseResolver {
+        isAcceptingUri(uri) {
+            return /^parse:(.*)/.test(uri);
         }
         async request(method, uri, options, data) {
             var model = capitalizeFirstLetter(uri.split(':')[1]);
@@ -91,6 +86,5 @@ define(['controls/datasource'], function (SPDataSource) {
                 }
             }
         }
-        
-    }
+    };
 })

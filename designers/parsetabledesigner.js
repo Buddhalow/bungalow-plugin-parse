@@ -11,18 +11,18 @@ define(['controls/tabledesigner'], function (SPTableDesigner) {
             }
             td.innerHTML = '&nbsp';
             if (!row) return td;
-             let columnId = this.table.dataSource.columns[columnIndex];
+             let columnId = this.table.columnheaders[columnIndex];
             let obj = row[columnId];
             if (obj instanceof Date) {
-                    let time = obj;
-                    if (!time) {
-                        td.innerHTML = '';
-                        return;
-                        
-                        
-                    }
-                    td.innerHTML = '<sp-datetime></sp-datetime>';
-                    td.querySelector('sp-datetime').setState(time);
+                let time = obj;
+                if (!time) {
+                    td.innerHTML = '';
+                    return;
+                    
+                    
+                }
+                td.innerHTML = '<sp-datetime></sp-datetime>';
+                td.querySelector('sp-datetime').setState(time);
                  
             } else if (obj instanceof Object) {
                 console.log(obj);
@@ -43,34 +43,36 @@ define(['controls/tabledesigner'], function (SPTableDesigner) {
                 let span = td.querySelector('span');
                 if (!!span)
                     span.style.pointerEvents = 'none';
-                let c = this.table.dataSource.getNumberOfChildren(row);
-                if (c > 0) {
-                    let dropdown = document.createElement(
-                        'span'
-                    );
-                    dropdown.style.cssFloat = 'right';
-                    dropdown.i = document.createElement('i');
-                    dropdown.i.setAttribute('class',  'fa fa-arrow-down');
-                    dropdown.appendChild(dropdown.i);
-                    dropdown.classList.add('btn-small');
-                    dropdown.addEventListener('click', (e) => {
-                       if ($(td.parentNode).hasClass('open')) {
-                            $('[data-parent-id="' + td.parentNode.getAttribute('data-id') + '"]').hide();
-                            $('[data-parent-id="' + td.parentNode.getAttribute('data-id') + '"]').removeClass('open');
-                            dropdown.querySelector('i').classList.remove('fa-arrow-up');
-                            dropdown.querySelector('i').classList.add('fa-arrow-down');
-                            $(td.parentNode).removeClass('open');
-                            return;
-                        }
-    
-                        $('[data-parent-id="' + td.parentNode.getAttribute('data-id') + '"]').show();
-                        $('[data-parent-id="' + td.parentNode.getAttribute('data-id') + '"]').addClass('open');
-                        dropdown.querySelector('i').classList.remove('fa-arrow-down');
-                        dropdown.querySelector('i').classList.add('fa-arrow-up');
-                        $(td.parentNode).addClass('open');
-                    });
-                    td.appendChild(dropdown);
-                }   
+                if (row && 'objects' in row) {
+                let c = row.objects.length;
+                    if (c > 0) {
+                        let dropdown = document.createElement(
+                            'span'
+                        );
+                        dropdown.style.cssFloat = 'right';
+                        dropdown.i = document.createElement('i');
+                        dropdown.i.setAttribute('class',  'fa fa-arrow-down');
+                        dropdown.appendChild(dropdown.i);
+                        dropdown.classList.add('btn-small');
+                        dropdown.addEventListener('click', (e) => {
+                           if ($(td.parentNode).hasClass('open')) {
+                                $('[data-parent-id="' + td.parentNode.getAttribute('data-id') + '"]').hide();
+                                $('[data-parent-id="' + td.parentNode.getAttribute('data-id') + '"]').removeClass('open');
+                                dropdown.querySelector('i').classList.remove('fa-arrow-up');
+                                dropdown.querySelector('i').classList.add('fa-arrow-down');
+                                $(td.parentNode).removeClass('open');
+                                return;
+                            }
+        
+                            $('[data-parent-id="' + td.parentNode.getAttribute('data-id') + '"]').show();
+                            $('[data-parent-id="' + td.parentNode.getAttribute('data-id') + '"]').addClass('open');
+                            dropdown.querySelector('i').classList.remove('fa-arrow-down');
+                            dropdown.querySelector('i').classList.add('fa-arrow-up');
+                            $(td.parentNode).addClass('open');
+                        });
+                        td.appendChild(dropdown);
+                    }   
+                }
             } 
             if (td.innerHTML === 'undefined') td.innerHTML = '';
             return td;
@@ -147,7 +149,7 @@ define(['controls/tabledesigner'], function (SPTableDesigner) {
         }
         getColumnElementAt(columnIndex) {
             let th = document.createElement('th');
-            let column = this.table.dataSource.getColumnAt(columnIndex);
+            let column = this.table.columnheaders[columnIndex];
             th.innerHTML = _e(column);
             return th;
         }
